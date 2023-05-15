@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour
@@ -10,12 +12,21 @@ public class PlayerController : MonoBehaviour
     public Arsenal[] arsenal;
 
     private Animator animator;
+    [SerializeField] private InputAction changeWeapon = new InputAction(type: InputActionType.Button);
+    private int arsenalIndex = 0;
+    private void OnEnable() {
+        changeWeapon.Enable();
+    }
+
+    private void OnDisable() {
+        changeWeapon.Disable();
+    }
 
     void Awake()
     {
         animator = GetComponent<Animator>();
         if (arsenal.Length > 0)
-            SetArsenal(arsenal[0].name);
+            SetArsenal(arsenal[arsenalIndex].name);
     }
 
     public void SetArsenal(string name)
@@ -45,6 +56,13 @@ public class PlayerController : MonoBehaviour
                 animator.runtimeAnimatorController = hand.controller;
                 return;
             }
+        }
+    }
+
+    private void Update() {
+        if (changeWeapon.WasPerformedThisFrame()) {
+            arsenalIndex = (arsenalIndex + 1) % arsenal.Length;
+            SetArsenal(arsenal[arsenalIndex].name);
         }
     }
 
