@@ -25,7 +25,7 @@ public class Actions : MonoBehaviour {
 
 	public void Run () {
 		animator.SetBool("Aiming", false);
-		animator.SetFloat ("Speed", 1f);
+		animator.SetFloat ("Speed", 7f);
 	}
 
 	public void Attack () {
