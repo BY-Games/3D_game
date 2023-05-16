@@ -15,6 +15,12 @@ public class AimStateManager : MonoBehaviour {
     [HideInInspector] public float currentFov = 10;
     [SerializeField] private float fovSmoothSpeed = 40;
 
+    [SerializeField] private Transform aimPos;
+    [SerializeField] private float aimSmoothSpeed = 20;
+    [SerializeField] private LayerMask aimMask;
+    
+    [HideInInspector] public RaycastHit hitInfo;
+
     // Start is called before the first frame update
     void Start() {
         vCam = GetComponentInChildren<CinemachineVirtualCamera>();
@@ -30,7 +36,13 @@ public class AimStateManager : MonoBehaviour {
         // vCam.m_Lens.FieldOfView = Mathf.Lerp(vCam.m_Lens.FieldOfView, currentFov, fovSmoothSpeed * Time.deltaTime);
 
         Vector2 screenCentre = new Vector2(Screen.width / 2, Screen.height / 2);
-        
+        Ray ray = Camera.main.ScreenPointToRay(screenCentre);
+        if (Physics.Raycast(ray, out hitInfo, Mathf.Infinity, aimMask)) {
+            aimPos.position = Vector3.Lerp(aimPos.position, hitInfo.point, aimSmoothSpeed * Time.deltaTime);
+        }
+        // To see the Gizmo of the ray in the Scene view:
+        // Debug.DrawRay(transform.TransformPoint(transform.position), aimPos.position, Color.red);
+
     }
 
     private void LateUpdate() {
