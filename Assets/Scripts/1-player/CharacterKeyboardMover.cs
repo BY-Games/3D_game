@@ -11,6 +11,7 @@ public class CharacterKeyboardMover : MonoBehaviour {
     [Tooltip("Speed of player keyboard-movement, in meters/second")] [SerializeField]
     float walkSpeed = 3.5f;
 
+    private bool idle;
     [SerializeField] float gravity = 9.81f;
     [SerializeField] float runSpeed = 7f;
     private float speed;
@@ -55,6 +56,7 @@ public class CharacterKeyboardMover : MonoBehaviour {
     void Start() {
         cc = GetComponent<CharacterController>();
         actions = GetComponent<Actions>();
+        idle = true;
     }
 
     Vector3 velocity = new Vector3(0, 0, 0);
@@ -74,12 +76,17 @@ public class CharacterKeyboardMover : MonoBehaviour {
             if (moveAction.ReadValue<Vector2>() == Vector2.zero) {
                 velocity.x = 0f;
                 velocity.z = 0f;
-                actions.Stay();
+                if (!idle) {
+                    actions.Stay();
+                    idle = true;
+                }
+                
             }
             else {
                 velocity.x = movement.x * speed;
                 velocity.z = movement.y * speed;
                 actions.Walk();
+                idle = false;
             }
         }
 

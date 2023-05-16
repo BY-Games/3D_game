@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 
@@ -7,6 +8,8 @@ using UnityEngine;
  * The player has limited ammunition.
  */
 public class Shooter: MonoBehaviour {
+    private Actions actions;
+    
     [Tooltip("Particle-effect that is triggered near the weapon mouth when the player shoots")]
     [SerializeField] private GameObject muzzleFlash = null;
 
@@ -26,9 +29,19 @@ public class Shooter: MonoBehaviour {
         muzzleFlash.SetActive(false);
     }
 
+    private void Awake() {
+        actions = GetComponent<Actions>();
+
+    }
+
     void Update()  {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButton(0) && !_isReloading) {
             if (ammo>0) {
+                if (actions) {
+                    actions.Attack();
+                }
+                
+                // actions.SendMessage("Attack", SendMessageOptions.DontRequireReceiver);
                 Shoot();
             } else {
                 Debug.Log("Out of ammunition!");
@@ -45,9 +58,11 @@ public class Shooter: MonoBehaviour {
         StartCoroutine(StopEffect());
         //Debug.Log("Shooting");
 
-        Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        // Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        // Ray rayOrigin = GetComponent<Transform>().
+
         RaycastHit hitInfo;
-        if (Physics.Raycast(rayOrigin, out hitInfo)) {
+        if (Physics.Raycast(transform.position, transform.forward, out hitInfo)) {
             GameObject hitMarker = Instantiate(bulletHole, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
             Destroy(hitMarker, 1f);
             if (hitInfo.collider.tag == "Enemy") {
