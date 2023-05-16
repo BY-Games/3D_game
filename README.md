@@ -1,30 +1,51 @@
-# Unity week 6: Three-dimensional scene-building and navigation
+# Three Dimensional Game
 
-A project with step-by-step scenes illustrating how to construct a 3D game, including:
+This project is an additional improvement for the game [06-3d-terrain-ai](https://github.com/gamedev-at-ariel/06-3d-terrain-ai.git)
 
+
+# Try our additional improvement
+(TO Do add here link to the game )[]
+
+
+# About the game:
+This game demonstrates some concepts of a 3D game, including the following:
 * Scene modelling with Terrain Tools and ProGrids;
 * Player control with CharacterController and NavMeshAgent;
 * Enemy AI;
 * Target visualization with gizmmos.
 
-Text explanations are available 
-[here](https://github.com/gamedev-at-ariel/gamedev-5782) in folder 08.
 
-## Cloning
-To clone the project, you may need to install git lfs first:
 
-    git lfs install 
+
+# Our changes 
+
+## Developing the existing scene
+
+We have made the following improvements to the existing scene:
+
+* Added a guard tower to the structure.
+* Constructed stairs to connect the tower with the main building.
+* Improved visibility by adding lighting to the room.
+
+
+
+## Player
+
+We have made the following changes to the player:
+
+
+1. The player has the option to run. When the shift button is pressed, the player will move faster.
+the changs happned at [‎CharacterKeyboardMover::Update](https://github.com/BY-Games/3D_game/blob/main/Assets/Scripts/1-player/CharacterKeyboardMover.cs#L63:~:text=CharacterKeyboardMover%3A%3AUpdate)
+
+
+2. The player has a weapon and can switch between two types of weapons. The changes can be found at 
+[‎PlayerController::Update](https://github.com/BY-Games/3D_game/blob/main/Assets/Yurowm/Demo/Scripts/PlayerController.cs#L62:~:text=PlayerController%3A%3AUpdate)
+
+3. The rifle now fires bullets. Each shot creates a projectile that travels in the direction of the raycast. When the projectile hits an object, it gets destroyed.
+
+
 
 ## Credits
-
-Programming:
-* Michael Lemberger
-* Erel Segal-Halevi
-
 Graphics:
-* [Sci-Fi Gun Light](https://assetstore.unity.com/packages/3d/props/guns/sci-fi-gun-light-87916)
-* [Sci-Fi Styled Modular Pack](https://assetstore.unity.com/packages/3d/environments/sci-fi/sci-fi-styled-modular-pack-82913)
-* [Toon Soldiers Demo](https://assetstore.unity.com/packages/3d/characters/toon-soldiers-demo-69684)
+* [Sci-Fi Soldier](https://assetstore.unity.com/packages/3d/characters/humanoids/sci-fi/sci-fi-soldier-29559)
 
-Online course:
-* [Unity RPG](https://www.gamedev.tv/p/unity-rpg/?product_id=1503859&coupon_code=JOINUS).
