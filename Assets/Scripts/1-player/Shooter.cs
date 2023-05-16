@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 
@@ -12,7 +11,7 @@ public class Shooter : MonoBehaviour {
     private AimStateManager aimState;
 
     [Tooltip("Particle-effect that is triggered near the weapon mouth when the player shoots")] [SerializeField]
-    private ParticleSystem muzzleFlash = null;
+    private GameObject muzzleFlash = null;
 
     [Tooltip("Particle-effect that is triggered where the player's bullet hits")] [SerializeField]
     private GameObject bulletHole = null;
@@ -61,7 +60,7 @@ public class Shooter : MonoBehaviour {
     }
 
     private void Shoot() {
-        muzzleFlash.Play();
+        muzzleFlash.GetComponent<ParticleSystem>().Play();
         if (muzzleFlash) {
             Debug.Log("MuzzleFlash Not Null");
             // muzzleFlash.SetActive(true);
