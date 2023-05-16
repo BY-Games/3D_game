@@ -4,7 +4,7 @@ This project is an additional improvement for the game [06-3d-terrain-ai](https:
 
 
 # Try our additional improvement
-(TO Do add here link to the game )[]
+[Robots Invasion](https://by-games.itch.io/robot-invation)
 
 
 # About the game:
