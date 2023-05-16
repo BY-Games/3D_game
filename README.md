@@ -6,7 +6,6 @@ This project is an additional improvement for the game [06-3d-terrain-ai](https:
 # Try our additional improvement
 (TO Do add here link to the game )[]
 
-A project with step-by-step scenes illustrating how to construct a 3D game, including:
 
 # About the game:
 This game demonstrates some concepts of a 3D game, including the following:
