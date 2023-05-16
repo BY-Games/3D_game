@@ -15,9 +15,12 @@ public class EnemyElliminate : MonoBehaviour {
 
     }
 
+    // Activate Death animation.
     public void Elliminate() {
+        // check if alive so the animation will be activated once.
         if (alive) {
             actions.Death();
+            // Destroy the enemy object, we do not need corps.
             Destroy(gameObject, 5f);
             alive = false;
         }

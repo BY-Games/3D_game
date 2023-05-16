@@ -46,7 +46,6 @@ public class Shooter : MonoBehaviour {
         Ray ray = Camera.main.ScreenPointToRay(screenCentre);
         if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, aimMask)) {
             aimPos.position = Vector3.Lerp(aimPos.position, hitInfo.point, aimSmoothSpeed * Time.deltaTime);
-            // Debug.DrawRay(screenCentre,hitInfo.point);
         }
 
         if (Input.GetMouseButton(0) && !_isReloading) {
@@ -54,8 +53,7 @@ public class Shooter : MonoBehaviour {
                 if (actions) {
                     actions.Attack();
                 }
-
-                // actions.SendMessage("Attack", SendMessageOptions.DontRequireReceiver);
+                
                 if (hitInfo.collider) {
                     GameObject hitMarker = Instantiate(bulletHole,
                         hitInfo.point,
@@ -78,14 +76,6 @@ public class Shooter : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.R) && !_isReloading) {
             _isReloading = true;
             Reload();
-        }
-    }
-
-
-    IEnumerator StopEffect() {
-        yield return new WaitForSeconds(0.3f);
-        if (muzzleFlash) {
-            muzzleFlash.SetActive(false);
         }
     }
 

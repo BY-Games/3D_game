@@ -38,11 +38,10 @@ We have made the following changes to the player:
 1. The player has the option to run. When the shift button is pressed, the player will move faster.
 the changs happned at [‎CharacterKeyboardMover::Update](https://github.com/BY-Games/3D_game/blob/main/Assets/Scripts/1-player/CharacterKeyboardMover.cs#L63:~:text=CharacterKeyboardMover%3A%3AUpdate)
 
-
 2. The player has a weapon and can switch between two types of weapons. The changes can be found at 
 [‎PlayerController::Update](https://github.com/BY-Games/3D_game/blob/main/Assets/Yurowm/Demo/Scripts/PlayerController.cs#L62:~:text=PlayerController%3A%3AUpdate)
 
-3. The rifle now fires bullets. Each shot creates a projectile that travels in the direction of the raycast. When the projectile hits an object, it gets destroyed.
+3. The rifle now fires bullets [Shooter.cs](Assets%2FScripts%2F1-player%2FShooter.cs). Each shot creates a projectile that travels in the direction of the raycast. When the projectile hits an object, it gets destroyed [EnemyElliminate.cs](Assets%2FScripts%2F2-npc%2FEnemyElliminate.cs).
 
 
 
