@@ -42,7 +42,7 @@ the changs happned at [‎CharacterKeyboardMover::Update](https://github.com/BY-
 2. The player has a weapon and can switch between two types of weapons. The changes can be found at 
 [‎PlayerController::Update](https://github.com/BY-Games/3D_game/blob/main/Assets/Yurowm/Demo/Scripts/PlayerController.cs#L62:~:text=PlayerController%3A%3AUpdate)
 
-3. The rifle now fires bullets. Each shot creates a projectile that travels in the direction of the raycast. When the projectile hits an object, it gets destroyed.
+3. The rifle now fires bullets. Each shot creates a projectile that hit in the direction of the raycast. When the projectile hits an enemy object, it gets eliminated and destroyed.
 
 
 
