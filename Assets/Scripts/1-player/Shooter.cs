@@ -8,7 +8,8 @@ using UnityEngine;
  */
 public class Shooter : MonoBehaviour {
     private Actions actions;
-    private AimStateManager aimState;
+
+    [SerializeField] Transform muzzlePos;
 
     [Tooltip("Particle-effect that is triggered near the weapon mouth when the player shoots")] [SerializeField]
     private GameObject muzzleFlash = null;
@@ -22,23 +23,32 @@ public class Shooter : MonoBehaviour {
     [Tooltip("How many bullets the player currently has")] [SerializeField]
     private int ammo;
 
+    [SerializeField] private Transform aimPos;
+    [SerializeField] private float aimSmoothSpeed = 20;
+    [SerializeField] private LayerMask aimMask;
+
 
     private bool _isReloading;
 
     void Start() {
         ammo = startAmmo;
         if (muzzleFlash) {
-            // muzzleFlash.SetActive(false);
+            muzzleFlash.SetActive(false);
         }
-        
     }
 
     private void Awake() {
         actions = GetComponent<Actions>();
-        aimState = GetComponent<AimStateManager>();
     }
 
     void Update() {
+        Vector2 screenCentre = new Vector2(Screen.width / 2, Screen.height / 2);
+        Ray ray = Camera.main.ScreenPointToRay(screenCentre);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, aimMask)) {
+            aimPos.position = Vector3.Lerp(aimPos.position, hitInfo.point, aimSmoothSpeed * Time.deltaTime);
+            // Debug.DrawRay(screenCentre,hitInfo.point);
+        }
+
         if (Input.GetMouseButton(0) && !_isReloading) {
             if (ammo > 0) {
                 if (actions) {
@@ -46,7 +56,19 @@ public class Shooter : MonoBehaviour {
                 }
 
                 // actions.SendMessage("Attack", SendMessageOptions.DontRequireReceiver);
-                Shoot();
+                if (hitInfo.collider) {
+                    GameObject hitMarker = Instantiate(bulletHole,
+                        hitInfo.point,
+                        Quaternion.LookRotation(hitInfo.normal));
+                    Destroy(hitMarker, 1f);
+                    if (hitInfo.collider.CompareTag("Enemy")) {
+                        hitInfo.collider.GetComponent<EnemyElliminate>().Elliminate();
+                        Debug.Log("Enemy is hit! You win!");
+                    }
+                }
+
+
+                ammo--;
             }
             else {
                 Debug.Log("Out of ammunition!");
@@ -59,38 +81,12 @@ public class Shooter : MonoBehaviour {
         }
     }
 
-    private void Shoot() {
-        muzzleFlash.GetComponent<ParticleSystem>().Play();
-        if (muzzleFlash) {
-            Debug.Log("MuzzleFlash Not Null");
-            // muzzleFlash.SetActive(true);
-            
-
-            StartCoroutine(StopEffect());
-        }
-        
-        
-        //Debug.Log("Shooting");
-
-        // Ray rayOrigin = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        // Ray rayOrigin = GetComponent<Transform>().
-
-        // RaycastHit hitInfo;
-        GameObject hitMarker = Instantiate(bulletHole, aimState.hitInfo.point, Quaternion.LookRotation(aimState.hitInfo.normal));
-        Destroy(hitMarker, 1f);
-        if (aimState.hitInfo.collider.CompareTag("Enemy")) {
-            Debug.Log("Enemy is hit! You win!");
-        }
-
-        ammo--;
-    }
 
     IEnumerator StopEffect() {
         yield return new WaitForSeconds(0.3f);
         if (muzzleFlash) {
-            // muzzleFlash.SetActive(false);
+            muzzleFlash.SetActive(false);
         }
-        
     }
 
     private void Reload() {

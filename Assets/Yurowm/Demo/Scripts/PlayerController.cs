@@ -27,6 +27,17 @@ public class PlayerController : MonoBehaviour {
             SetArsenal(arsenal[arsenalIndex].name);
     }
 
+    public void FireCurrentWeapon() {
+        var weapon = arsenal[arsenalIndex];
+        if (weapon.name == "Rifle") {
+            ShowMuzzleFlash gun = weapon.rightGun.GetComponentInChildren<ShowMuzzleFlash>();
+            if (gun) {
+                gun.Fire();
+            }
+        }
+        
+    }
+    
     public void SetArsenal(string name) {
         foreach (Arsenal hand in arsenal) {
             if (hand.name == name) {
@@ -53,6 +64,8 @@ public class PlayerController : MonoBehaviour {
             }
         }
     }
+    
+    
 
     private void Update() {
         if (changeWeapon.WasPerformedThisFrame()) {
