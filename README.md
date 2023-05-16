@@ -26,10 +26,10 @@ We have made the following improvements to the existing scene:
 * Added a guard tower to the structure.
 * Constructed stairs to connect the tower with the main building.
 * Improved visibility by adding lighting to the room.
-
-![Alt text](Assets/Screenshot/Screenshot%202023-05-16%20154118.jpg)
+![Alt text](Assets/Screenshot/Screenshot%202023-05-16%20233810.jpg)
 ![Alt text](Assets/Screenshot/Screenshot%202023-05-16%20154304.jpg)
 ![Alt text](Assets/Screenshot/Screenshot%202023-05-16%20154640.jpg)
+![Alt text](Assets/Screenshot/Screenshot%202023-05-16%20233554.jpg)
 ## Player
 
 We have made the following changes to the player:
